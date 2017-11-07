@@ -1,4 +1,5 @@
 module Weather
+  # a Weather::Response class containing all information returned from API
   class Response
     # a Weather::Astronomy object containing sunrise and sunset
     # information for the requested location
@@ -57,25 +58,27 @@ module Weather
       @request_location = request_location
       @request_url      = request_url
 
+      item = doc[:item]
+      description = item[:description]
       @astronomy  = Astronomy.new doc[:astronomy]
       @location   = Location.new doc[:location]
       @units      = Units.new doc[:units]
       @wind       = Wind.new doc[:wind]
       @atmosphere = Atmosphere.new doc[:atmosphere]
-      @image      = Image.new doc[:item][:description]
+      @image      = Image.new description
 
       @forecasts = []
 
-      @condition  = Condition.new doc[:item][:condition]
+      @condition  = Condition.new item[:condition]
 
-      doc[:item][:forecast].each do |forecast|
+      item[:forecast].each do |forecast|
         @forecasts << Forecast.new(forecast)
       end
 
-      @latitude    = doc[:item][:lat].to_f
-      @longitude   = doc[:item][:long].to_f
-      @title       = doc[:item][:title].strip
-      @description = doc[:item][:description].strip
+      @latitude    = item[:lat].to_f
+      @longitude   = item[:long].to_f
+      @title       = item[:title].strip
+      @description = description.strip
     end
   end
 end
