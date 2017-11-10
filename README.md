@@ -39,7 +39,10 @@ This produces:
 Lookup via location name
     
     response = Weather.lookup_by_location('San Francisco, CA', Weather::Units::FAHRENHEIT)
-    
+
+## [Refactorings](refactoring/refactoring.md)
+
+
 ## Copyright
 
 Copyright (c) 2012 Andrew Stewart. See `LICENSE` file for more details.

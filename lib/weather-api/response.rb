@@ -62,20 +62,25 @@ module Weather
       @units      = Units.new doc[:units]
       @wind       = Wind.new doc[:wind]
       @atmosphere = Atmosphere.new doc[:atmosphere]
-      @image      = Image.new doc[:item][:description]
+
+      initialize_from_item(doc[:item])
+    end
+
+    def initialize_from_item(item)
+      @image = Image.new item[:description]
 
       @forecasts = []
 
-      @condition  = Condition.new doc[:item][:condition]
+      @condition = Condition.new item[:condition]
 
-      doc[:item][:forecast].each do |forecast|
+      item[:forecast].each do |forecast|
         @forecasts << Forecast.new(forecast)
       end
 
-      @latitude    = doc[:item][:lat].to_f
-      @longitude   = doc[:item][:long].to_f
-      @title       = doc[:item][:title].strip
-      @description = doc[:item][:description].strip
+      @latitude    = item[:lat].to_f
+      @longitude   = item[:long].to_f
+      @title       = item[:title].strip
+      @description = item[:description].strip
     end
   end
 end
