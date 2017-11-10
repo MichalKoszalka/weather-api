@@ -73,7 +73,7 @@ module Weather
 
       @condition = Condition.new item[:condition]
 
-      item[:forecast].each do |forecast|
+      doc[:item][:forecast].each do |forecast|
         @forecasts << Forecast.new(forecast)
       end
 
