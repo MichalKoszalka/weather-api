@@ -113,5 +113,76 @@
      
 Done
 
+#### 1. DuplicateMethodCall ([Feature Envy](https://refactoring.guru/smells/feature-envy))
+
+    def initialize_from_item(item)
+      @image = Image.new item[:description]
+
+      @forecasts = []
+
+      @condition = Condition.new item[:condition]
+
+      doc[:item][:forecast].each do |forecast|
+        @forecasts << Forecast.new(forecast)
+      end
+
+      @latitude    = item[:lat].to_f
+      @longitude   = item[:long].to_f
+      @title       = item[:title].strip
+      @description = item[:description].strip
+    end
+    
+`item[:description]` being called 2 times to retrieve its value
+
+**Solution**: [Extract method](https://refactoring.guru/extract-method)  
+**Steps:**  
+1 Introduce new method. Run tests.
+
+    def initialize_from_item(item)
+      @image = Image.new item[:description]
+
+      @forecasts = []
+
+      @condition = Condition.new item[:condition]
+
+      doc[:item][:forecast].each do |forecast|
+        @forecasts << Forecast.new(forecast)
+      end
+
+      @latitude    = item[:lat].to_f
+      @longitude   = item[:long].to_f
+      @title       = item[:title].strip
+      @description = item[:description].strip
+    end
+    
+    def initialize_from_description(description)
+      
+    end
+    
+2 Copy the relevant code fragment to your new method.  
+ Delete the fragment from its old location and put a call for the new method there instead.  
+ Run tests.
+ 
+     def initialize_from_item(item)
+       @forecasts = []
+ 
+       @condition = Condition.new item[:condition]
+ 
+       item[:forecast].each do |forecast|
+         @forecasts << Forecast.new(forecast)
+       end
+ 
+       @latitude    = item[:lat].to_f
+       @longitude   = item[:long].to_f
+       @title       = item[:title].strip
+       initialize_from_description(item[:description])
+     end
+ 
+     def initialize_from_description(description)
+       @image = Image.new description
+       @description = description.strip
+     end
+     
+3 Done
 
   

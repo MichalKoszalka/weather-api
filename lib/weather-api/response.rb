@@ -67,20 +67,23 @@ module Weather
     end
 
     def initialize_from_item(item)
-      @image = Image.new item[:description]
-
       @forecasts = []
 
       @condition = Condition.new item[:condition]
 
-      doc[:item][:forecast].each do |forecast|
+      item[:forecast].each do |forecast|
         @forecasts << Forecast.new(forecast)
       end
 
       @latitude    = item[:lat].to_f
       @longitude   = item[:long].to_f
       @title       = item[:title].strip
-      @description = item[:description].strip
+      initialize_from_description(item[:description])
+    end
+
+    def initialize_from_description(description)
+      @image = Image.new description
+      @description = description.strip
     end
   end
 end
