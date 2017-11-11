@@ -66,11 +66,11 @@ module Weather
       initialize_from_item(doc[:item])
     end
 
+    private
     def initialize_from_item(item)
-      @forecasts = []
-
       @condition = Condition.new item[:condition]
 
+      @forecasts = []
       item[:forecast].each do |forecast|
         @forecasts << Forecast.new(forecast)
       end
@@ -81,6 +81,7 @@ module Weather
       initialize_from_description(item[:description])
     end
 
+    private
     def initialize_from_description(description)
       @image = Image.new description
       @description = description.strip

@@ -38,11 +38,17 @@ module Weather
       acceptable_units = [Units::CELSIUS, Units::FAHRENHEIT]
       unit = Units::CELSIUS unless acceptable_units.include?(unit)
 
-      url = ROOT + "?q=select%20*%20from%20weather.forecast%20"
-      url += "where%20woeid%3D#{woeid}%20and%20u%3D'#{unit}'&format=json"
+      url = create_url(woeid, unit)
 
       doc = get_response url
       Response.new woeid, url, doc
+    end
+
+    private
+    def create_url(woeid, unit)
+      url = ROOT + "?q=select%20*%20from%20weather.forecast%20"
+      url += "where%20woeid%3D#{woeid}%20and%20u%3D'#{unit}'&format=json"
+      url
     end
 
     # Public: Looks up current weather information using a location string
@@ -65,22 +71,24 @@ module Weather
       acceptable_units = [Units::CELSIUS, Units::FAHRENHEIT]
       unit = Units::CELSIUS unless acceptable_units.include?(unit)
 
-      # per the documentation here: https://developer.yahoo.com/weather/
-      # can look up the woeid via geo places api from location
-      url = ROOT + "?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='#{location}') and u='#{unit}'&format=json"
-      url = URI.escape(url)
+      url = create_url_by_location(location, unit)
 
       doc = get_response url
       Response.new location, url, doc
     end
 
     private
+    def create_url_by_location(location, unit)
+      # per the documentation here: https://developer.yahoo.com/weather/
+      # can look up the woeid via geo places api from location
+      url = ROOT + "?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='#{location}') and u='#{unit}'&format=json"
+      url = URI.escape(url)
+      url
+    end
+
+    private
     def get_response url
-      begin
-        response = Net::HTTP.get_response(URI.parse url).body.to_s
-      rescue => e
-        raise "Failed to get weather [url=#{url}, e=#{e}]."
-      end
+      response = get_http_response_from_url(url)
 
       response = Map.new(JSON.parse(response))[:query][:results][:channel]
 
@@ -89,6 +97,16 @@ module Weather
       end
 
       response
+    end
+
+    private
+    def get_http_reponse_from_url url
+      begin
+        response = Net::HTTP.get_response(URI.parse url).body.to_s
+        response
+      rescue => exception
+        raise "Failed to get weather [url=#{url}, e=#{exception}]."
+      end
     end
   end
 end

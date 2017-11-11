@@ -12,7 +12,7 @@
     
 ## Refactorings:
 
-#### 1. DuplicateMethodCall ([Feature Envy](https://refactoring.guru/smells/feature-envy))
+#### 1. Duplicate Method Call ([Feature Envy](https://refactoring.guru/smells/feature-envy))
 
     def initialize(request_location, request_url, doc)
       # save the request params
@@ -113,7 +113,7 @@
      
 Done
 
-#### 1. DuplicateMethodCall ([Feature Envy](https://refactoring.guru/smells/feature-envy))
+#### 2. Duplicate Method Call ([Feature Envy](https://refactoring.guru/smells/feature-envy))
 
     def initialize_from_item(item)
       @image = Image.new item[:description]
@@ -155,6 +155,7 @@ Done
       @description = item[:description].strip
     end
     
+    private
     def initialize_from_description(description)
       
     end
@@ -178,6 +179,7 @@ Done
        initialize_from_description(item[:description])
      end
  
+     private
      def initialize_from_description(description)
        @image = Image.new description
        @description = description.strip
