@@ -1,6 +1,7 @@
 ## Files:
 
  lib/[weather-api.rb](weather-api.md)  
+ lib/weather-api/[astronomy.rb](astronomy.md)  
  lib/weather-api/[atmosphere.rb](atmosphere.md)  
  lib/weather-api/[condition.rb](condition.md)  
  lib/weather-api/[forecast.rb](forecast.md)  
