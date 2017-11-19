@@ -1,4 +1,6 @@
 module Weather
+  # Class containing sunrise and sunset
+  # information for the requested location
   class Astronomy
     # a Time object containing the sunrise time for a location
     attr_reader :sunrise

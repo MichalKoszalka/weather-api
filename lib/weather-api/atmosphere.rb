@@ -1,4 +1,6 @@
 module Weather
+  # Class containing the atmosphere
+  # information for the requested location
   class Atmosphere
     class Barometer
       STEADY  = 'steady'

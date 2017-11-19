@@ -1,4 +1,6 @@
 module Weather
+  # Class detailing the current
+  # conditions of the requested location
   class Condition
     # the weather condition code, detailed at http://developer.yahoo.com/weather
     attr_reader :code

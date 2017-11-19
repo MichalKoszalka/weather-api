@@ -14,6 +14,7 @@ require 'weather-api/utils'
 require 'weather-api/version'
 require 'weather-api/wind'
 
+# Module responsible for calling endpoint to get weather information
 module Weather
   class << self
     # Yahoo! Weather info endpoint

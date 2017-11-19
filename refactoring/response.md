@@ -187,4 +187,20 @@ Done
      
 3 Done
 
+#### 3. [Irresponsible Module](https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md)
+    
+    module Weather
+      class Response
+
+`class Response` has no descriptive comment
+
+**Solution**: Add descriptive comment  
+**Steps:**  
+1 Add comment before class. No need to test it.
+
+    module Weather
+      # Class containing the response from API call
+      class Response
+
+Done
   

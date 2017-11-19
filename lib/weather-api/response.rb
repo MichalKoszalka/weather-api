@@ -1,4 +1,5 @@
 module Weather
+  # Class containing the response from API call
   class Response
     # a Weather::Astronomy object containing sunrise and sunset
     # information for the requested location

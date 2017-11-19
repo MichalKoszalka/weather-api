@@ -1,4 +1,6 @@
 module Weather
+  # Class containing the wind information
+  # for the requested location
   class Wind
     # the temperature, with wind chill factored in
     attr_reader :chill
