@@ -1,4 +1,6 @@
 module Weather
+  # Class containing the geographical
+  # names of the requested location
   class Location
     # the name of the city
     attr_reader :city

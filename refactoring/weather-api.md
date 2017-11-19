@@ -240,6 +240,23 @@ Method `get_response` has local variable `e`.
     
 3 Done
 
+#### 4. [Irresponsible Module](https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md)
+    
+    module Weather
+      class << self
+
+`module Weather` has no descriptive comment
+
+**Solution**: Add descriptive comment  
+**Steps:**  
+1 Add comment before module. No need to test it.
+
+    # Module responsible for calling endpoint to get weather information
+    module Weather
+      class << self
+
+Done
+
   
 
  

@@ -1,6 +1,106 @@
-## Files:
+## Code smells
 
- lib/
-    [weather-api.rb](refactoring/weather-api.md)
+    reek lib\weather-api\atmosphere.rb
+     Inspecting 1 file(s):
+     S
+     
+     lib\weather-api\atmosphere.rb -- 1 warning:
+       [2]:IrresponsibleModule: Weather::Atmosphere has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
+                         
+## Refactorings:
 
+#### 1. [Irresponsible Module](https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md)
 
+module Weather
+  
+      class Atmosphere
+        class Barometer
+          STEADY  = 'steady'
+          RISING  = 'rising'
+          FALLING = 'falling'
+    
+          # list of all possible barometer constants
+          ALL = [STEADY, RISING, FALLING]
+        end
+    
+        # air humidity
+        attr_reader :humidity
+    
+        # visibility of the surroundings
+        attr_reader :visibility
+    
+        # air pressure level
+        attr_reader :pressure
+    
+        # barometer state, defined as one of the contants
+        # in Weather::Atmosphere::Barometer
+        attr_reader :barometer
+    
+        def initialize(payload)
+          @humidity   = payload[:humidity].to_i
+          @visibility = payload[:visibility].to_i
+          @pressure   = payload[:pressure].to_f
+    
+          # map barometric pressure to appropriate constant
+          @barometer = nil
+    
+          case payload[:rising].to_i
+            when 0 then @barometer = Barometer::STEADY
+            when 1 then @barometer = Barometer::RISING
+            when 2 then @barometer = Barometer::FALLING
+          end
+        end
+      end
+    end
+    
+`class Atmosphere` has no descriptive comment
+
+**Solution**: Add descriptive comment  
+**Steps:**  
+1 Add comment before class. No need to test it.
+
+    module Weather
+      # Class containing the atmosphere
+      # information for the requested location
+      class Atmosphere
+        class Barometer
+          STEADY  = 'steady'
+          RISING  = 'rising'
+          FALLING = 'falling'
+    
+          # list of all possible barometer constants
+          ALL = [STEADY, RISING, FALLING]
+        end
+    
+        # air humidity
+        attr_reader :humidity
+    
+        # visibility of the surroundings
+        attr_reader :visibility
+    
+        # air pressure level
+        attr_reader :pressure
+    
+        # barometer state, defined as one of the contants
+        # in Weather::Atmosphere::Barometer
+        attr_reader :barometer
+    
+        def initialize(payload)
+          @humidity   = payload[:humidity].to_i
+          @visibility = payload[:visibility].to_i
+          @pressure   = payload[:pressure].to_f
+    
+          # map barometric pressure to appropriate constant
+          @barometer = nil
+    
+          case payload[:rising].to_i
+            when 0 then @barometer = Barometer::STEADY
+            when 1 then @barometer = Barometer::RISING
+            when 2 then @barometer = Barometer::FALLING
+          end
+        end
+      end
+    end
+
+     
+Done

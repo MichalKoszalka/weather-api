@@ -1,4 +1,6 @@
 module Weather
+  # Class containig the units corresponding
+  # to the information contained in the response
   class Units
     FAHRENHEIT = 'f'
     CELSIUS   = 'c'

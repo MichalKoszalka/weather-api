@@ -1,4 +1,5 @@
 module Weather
+  # Class containing weather for specific day
   class Forecast
     # the brief name of the day associated with the forecast
     attr_reader :day

@@ -1,6 +1,7 @@
 require 'chronic'
 
 module Weather
+  # Utility class with time parser
   class Utils
 
     # Attempts to convert passed text into a Time object
