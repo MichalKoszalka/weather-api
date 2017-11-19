@@ -89,7 +89,7 @@ module Weather
 
     private
     def get_response url
-      response = get_http_response_from_url(url)
+      response = get_http_reponse_from_url(url)
 
       response = Map.new(JSON.parse(response))[:query][:results][:channel]
 
